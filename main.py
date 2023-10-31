@@ -1,6 +1,22 @@
 import tkinter as tk
 
-# create the main window
+def on_button_click(value):
+    current_equation = equation_var.get()
+    
+    if value in "+-":
+        equation_var.set(current_equation + f" {value} ")
+    elif value == "×":
+        equation_var.set(current_equation + f" * ")
+    elif value == "÷" :
+        equation_var.set(current_equation + f" / ")
+    elif value == "=":
+        result = eval(current_equation)
+        equation_var.set(result)
+    else:
+        equation_var.set(current_equation + str(value))
+ 
+
+# Create the main window
 root = tk.Tk()
 root.title("Calculator")
 root.geometry("400x400")
@@ -28,7 +44,7 @@ col_val = 0
 
 # Buttons
 for button_value in buttons:
-    button = tk.Button(root, text=button_value, font=("Helvetica", 16), width = 5, height = 3)
+    button = tk.Button(root, text=button_value, command=lambda value=button_value: on_button_click(value), font=("Helvetica", 16), width = 5, height = 3)
     button.grid(row = row_val, column=col_val, padx = 5, pady = 3)
 
     col_val += 1
